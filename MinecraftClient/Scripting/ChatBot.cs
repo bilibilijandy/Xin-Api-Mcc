@@ -573,14 +573,7 @@ namespace MinecraftClient.Scripting
         {
             if (string.IsNullOrEmpty(username))
                 return false;
-
-            foreach (char c in username)
-                if (!(c >= 'a' && c <= 'z'
-                        || c >= 'A' && c <= 'Z'
-                        || c >= '0' && c <= '9'
-                        || c == '_'))
-                    return false;
-
+            //适配所有id
             return true;
         }
 
