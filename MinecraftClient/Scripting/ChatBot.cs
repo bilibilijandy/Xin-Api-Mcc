@@ -573,7 +573,18 @@ namespace MinecraftClient.Scripting
         {
             if (string.IsNullOrEmpty(username))
                 return false;
+<<<<<<< HEAD
             //适配所有id
+=======
+
+            //foreach (char c in username)
+                //if (!(c >= 'a' && c <= 'z'
+                        //|| c >= 'A' && c <= 'Z'
+                        //|| c >= '0' && c <= '9'
+                        //|| c == '_'))
+                    //return false;
+            //不为空即验证成功（为啥非要验证啊，还不关联配置，配置明明有这个设置）
+>>>>>>> 1e772b426f56ca7c1126dbdcb16cb20e144cd6e0
             return true;
         }
 
