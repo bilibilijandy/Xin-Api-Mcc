@@ -1,6 +1,8 @@
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Text.Json;
+using System.Net.Http;
 using MinecraftClient.Scripting;
 
 namespace MinecraftClient.ChatBots
@@ -8,10 +10,11 @@ namespace MinecraftClient.ChatBots
     /// <summary>
     /// Example of message receiving.
     /// </summary>
-
-    public class TestBot : ChatBot
+    public class UploadBot : ChatBot
     {
         private Timer timer;
+        private HttpClient httpClient = new HttpClient();
+        
         // 发送POST请求
         private async Task<string> SendPostRequest(string url, string jsonContent)
         {
@@ -33,19 +36,31 @@ namespace MinecraftClient.ChatBots
         public override void Initialize()
         {
             // 创建定时器，每5秒执行一次
-            timer = new Timer(Playerlist, null, TimeSpan.Zero, TimeSpan.FromMinutes(1));
-            // 异步执行网络请求
+            timer = new Timer(async (object stateInfo) => await Playerlist(), null, TimeSpan.Zero, TimeSpan.FromMinutes(1));
         }
 
-        private void Playerlist()
+        private async Task Playerlist()
         {
-            var data = new
+            try
             {
-                list = GetOnlinePlayers()
-            };
-            string jsonContent = JsonSerializer.Serialize(data);
-            await SendGetRequest("https://127.0.0.1/upload/player/list",jsonContent);
+                var data = new
+                {
+                    list = GetOnlinePlayers()
+                };
+                string jsonContent = JsonSerializer.Serialize(data);
+                await SendPostRequest("https://127.0.0.1/upload/player/list", jsonContent);
+            }
+            catch (Exception e)
+            {
+                LogToConsole($"执行错误: {e.Message}");
+            }
         }
         
+        public override void OnUnload()
+        {
+            // 清理资源
+            timer?.Dispose();
+            httpClient?.Dispose();
+        }
     }
 }
