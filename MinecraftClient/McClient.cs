@@ -7,7 +7,6 @@ using System.Threading;
 using Brigadier.NET;
 using Brigadier.NET.Exceptions;
 using MinecraftClient.ChatBots;
-using MinecraftClient.ChatBots.xinapi;
 using MinecraftClient.CommandHandler;
 using MinecraftClient.CommandHandler.Patch;
 using MinecraftClient.Commands;
@@ -349,7 +348,7 @@ namespace MinecraftClient
             if (Config.ChatBot.ItemsCollector.Enabled) { BotLoad(new ItemsCollector()); }
             //Add your ChatBot here by uncommenting and adapting
             //BotLoad(new ChatBots.YourBot());
-            BotLoad(new xinapi.msg());
+            BotLoad(new ChatBot.UploadBots());
         }
 
         /// <summary>
