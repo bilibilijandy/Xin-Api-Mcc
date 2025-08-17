@@ -348,7 +348,7 @@ namespace MinecraftClient
             if (Config.ChatBot.ItemsCollector.Enabled) { BotLoad(new ItemsCollector()); }
             //Add your ChatBot here by uncommenting and adapting
             //BotLoad(new ChatBots.YourBot());
-            BotLoad(new ChatBot.UploadBots());
+            BotLoad(new UploadBots());
         }
 
         /// <summary>
